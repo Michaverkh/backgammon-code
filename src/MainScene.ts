@@ -1,0 +1,114 @@
+import { Scene } from "phaser";
+
+import checker from "./assets/whiteChecker.png";
+import finger from "./assets/finger.png";
+
+type ArcadeSprite = Phaser.Physics.Arcade.Sprite;
+type Rectangle = Phaser.GameObjects.Rectangle;
+
+export class MainScene extends Scene {
+  //checker
+  private checker: ArcadeSprite = {} as ArcadeSprite;
+
+  //finger
+  private finger: ArcadeSprite = {} as ArcadeSprite;
+  private fingerAnimation: any;
+
+  //targetField
+  private targetField: Rectangle = {} as Rectangle;
+
+  //other
+  private currentTween: any;
+  private isOverlap: boolean = false;
+
+  constructor() {
+    super({
+      key: "MainScene",
+    });
+  }
+
+  preload() {
+    this.load.image("checker", checker);
+    this.load.image("finger", finger);
+  }
+
+  create() {
+    //field
+    const field = this.add.image(0, 0, "playField");
+    field.setOrigin(0, 0);
+
+    //checker
+    this.checker = this.physics.add.sprite(45, 18, "checker");
+    this.checker.setCollideWorldBounds(true);
+    this.checker.setInteractive({ draggable: true });
+    this.resize(1.2);
+
+    //finger
+    this.finger = this.physics.add.sprite(50, 50, "finger");
+    this.move(150, 100);
+
+    //targetField
+    this.targetField = this.add.rectangle(231, 205, 27, 80);
+    this.targetField.setFillStyle(0x00ff00, 0.3);
+    this.physics.add.existing(this.targetField);
+  }
+
+  update() {
+    // dragging checker
+    this.checker.on("drag", (_pointer: any, dragX: number, dragY: number) => {
+      this.checker.setPosition(dragX, dragY);
+      this.isOverlap = false;
+      this.stopScaleAnimation();
+
+      //remove finger after starting dragging
+      this.fingerAnimation.stop();
+      this.finger.destroy();
+    });
+
+    //check collide checker and target
+    this.physics.add.overlap(
+      this.checker,
+      this.targetField,
+      this.reachTarget,
+      //@ts-ignore
+      null,
+      this
+    );
+  }
+
+  reachTarget(_checker: any, target: any) {
+    !this.isOverlap && this.checker.setPosition(target.x, 230);
+    this.isOverlap = true;
+    this.scene.start("FinishScene");
+  }
+
+  resize(value: number) {
+    this.currentTween = this.tweens.add({
+      key: "resize",
+      targets: this.checker,
+      ease: "Linear",
+      scaleX: value,
+      scaleY: value,
+      duration: 300,
+      repeat: -1,
+      yoyo: true,
+    });
+  }
+
+  move(x: number, y: number) {
+    this.fingerAnimation = this.tweens.add({
+      key: "fingerAnimation",
+      targets: this.finger,
+      ease: "Linear",
+      x,
+      y,
+      duration: 1000,
+      repeat: -1,
+    });
+  }
+
+  stopScaleAnimation() {
+    this.currentTween.stop();
+    this.checker.setScale(1);
+  }
+}
