@@ -1,8 +1,5 @@
 import { Scene } from "phaser";
 
-import checker from "./assets/whiteChecker.png";
-import finger from "./assets/finger.png";
-
 type ArcadeSprite = Phaser.Physics.Arcade.Sprite;
 type Rectangle = Phaser.GameObjects.Rectangle;
 
@@ -28,8 +25,8 @@ export class MainScene extends Scene {
   }
 
   preload() {
-    this.load.image("checker", checker);
-    this.load.image("finger", finger);
+    this.load.image("checker", "whiteChecker.png");
+    this.load.image("finger", "finger.png");
   }
 
   create() {

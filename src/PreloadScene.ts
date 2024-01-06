@@ -1,5 +1,4 @@
 import { Scene } from "phaser";
-import playField from "./assets/playField.png";
 
 export class PreloadScene extends Scene {
   constructor() {
@@ -9,7 +8,7 @@ export class PreloadScene extends Scene {
   }
 
   preload() {
-    this.load.image("playField", playField);
+    this.load.image("playField", "playField.png");
   }
 
   create() {
