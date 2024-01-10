@@ -26,7 +26,6 @@ export class MainScene extends Scene {
 
   preload() {
     this.load.image("checker", "whiteChecker.png");
-    this.load.image("finger", "finger.png");
   }
 
   create() {
@@ -35,14 +34,14 @@ export class MainScene extends Scene {
     field.setOrigin(0, 0);
 
     //checker
-    this.checker = this.physics.add.sprite(45, 18, "checker");
+    this.checker = this.physics.add.sprite(325, 18, "checker");
     this.checker.setCollideWorldBounds(true);
     this.checker.setInteractive({ draggable: true });
     this.resize(1.2);
 
     //finger
-    this.finger = this.physics.add.sprite(50, 50, "finger");
-    this.move(150, 100);
+    this.finger = this.physics.add.sprite(325, 50, "finger");
+    this.move(230, 180);
 
     //targetField
     this.targetField = this.add.rectangle(231, 205, 27, 80);
@@ -74,9 +73,18 @@ export class MainScene extends Scene {
   }
 
   reachTarget(_checker: any, target: any) {
-    !this.isOverlap && this.checker.setPosition(target.x, 230);
-    this.isOverlap = true;
-    this.scene.start("FinishScene");
+    !this.isOverlap &&
+      this.tweens.add({
+        targets: this.checker,
+        x: target.x,
+        y: 230,
+        duration: 500,
+        ease: "Linear",
+        onComplete: () => {
+          this.scene.start("FinishScene");
+          this.isOverlap = true;
+        },
+      });
   }
 
   resize(value: number) {
