@@ -1,4 +1,6 @@
 import { Scene } from "phaser";
+import { drawImageBase64 } from "./utils";
+import { assetsCollection } from "./data";
 
 type ArcadeSprite = Phaser.Physics.Arcade.Sprite;
 type Rectangle = Phaser.GameObjects.Rectangle;
@@ -25,7 +27,7 @@ export class MainScene extends Scene {
   }
 
   preload() {
-    this.load.image("checker", "whiteChecker.png");
+    drawImageBase64(assetsCollection.whiteChecker, "checker", this, 20, 20);
   }
 
   create() {

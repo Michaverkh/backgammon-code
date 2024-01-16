@@ -29,6 +29,14 @@ export class FinishScene extends Scene {
       infoMessage.classList.remove("disabled");
       infoMessage.textContent =
         "Отличный ход! Узнайте больше стратегий и играйте полную версию!";
+
+      //Mintegral requirements
+      downloadButton.addEventListener("click", () => {
+        //@ts-ignore
+        window?.install && window.install();
+        //@ts-ignore
+        window.gameEnd && window.gameEnd();
+      });
     }
   }
 

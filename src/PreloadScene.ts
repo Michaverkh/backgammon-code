@@ -1,6 +1,12 @@
 import { Scene } from "phaser";
+import { assetsCollection } from "./data";
+import { drawImageBase64 } from "./utils";
 
 type ArcadeSprite = Phaser.Physics.Arcade.Sprite;
+
+//Mintegral requirements
+export function gameStart() {}
+export function gameClose() {}
 
 export class PreloadScene extends Scene {
   //finger
@@ -13,8 +19,12 @@ export class PreloadScene extends Scene {
   }
 
   preload() {
-    this.load.image("playField", "playField.png");
-    this.load.image("finger", "finger.png");
+    drawImageBase64(assetsCollection.playField, "playField", this, 370, 248);
+    drawImageBase64(assetsCollection.finger, "finger", this, 30, 35);
+
+    //Mintegral requirements
+    //@ts-ignore
+    window.gameReady && window.gameReady();
   }
 
   create() {
