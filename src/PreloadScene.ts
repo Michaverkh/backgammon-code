@@ -5,8 +5,8 @@ import { drawImageBase64 } from "./utils";
 type ArcadeSprite = Phaser.Physics.Arcade.Sprite;
 
 //Mintegral requirements
-function gameStart() {}
-function gameClose() {}
+export function gameStart() {}
+export function gameClose() {}
 
 export class PreloadScene extends Scene {
   //finger
