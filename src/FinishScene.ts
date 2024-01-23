@@ -28,7 +28,7 @@ export class FinishScene extends Scene {
       downloadButton.classList.remove("disabled");
       infoMessage.classList.remove("disabled");
       infoMessage.textContent =
-        "Отличный ход! Узнайте больше стратегий и играйте полную версию!";
+        "Great move! Find out more strategies and play the full version!";
 
       //Mintegral requirements
       downloadButton.addEventListener("click", () => {
