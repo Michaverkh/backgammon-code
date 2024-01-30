@@ -30,12 +30,10 @@ export class FinishScene extends Scene {
       infoMessage.textContent =
         "Great move! Find out more strategies and play the full version!";
 
-      //Mintegral requirements
+      //IronSource requirements
       downloadButton.addEventListener("click", () => {
         //@ts-ignore
-        window?.install && window.install();
-        //@ts-ignore
-        window.gameEnd && window.gameEnd();
+        window?.dapi && dapi.openStoreUrl();
       });
     }
   }

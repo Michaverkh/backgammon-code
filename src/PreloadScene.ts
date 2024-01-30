@@ -17,10 +17,6 @@ export class PreloadScene extends Scene {
   preload() {
     drawImageBase64(assetsCollection.playField, "playField", this, 370, 248);
     drawImageBase64(assetsCollection.finger, "finger", this, 30, 35);
-
-    //Mintegral requirements
-    //@ts-ignore
-    window.gameReady && window.gameReady();
   }
 
   create() {
