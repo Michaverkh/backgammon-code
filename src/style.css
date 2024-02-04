@@ -92,3 +92,7 @@ body {
   background-size: 500px 100%;
   animation: shimmer 2s infinite;
 }
+
+.no-select {
+  user-select: none;
+}

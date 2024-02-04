@@ -31,7 +31,8 @@ export class FinishScene extends Scene {
         "Great move! Find out more strategies and play the full version!";
 
       //IronSource requirements
-      downloadButton.addEventListener("click", () => {
+      downloadButton.addEventListener("click", (event: any) => {
+        event.preventDefault();
         //@ts-ignore
         window?.dapi && dapi.openStoreUrl();
       });

@@ -30,7 +30,8 @@ export class PreloadScene extends Scene {
     const infoMessage = document.getElementById("infoMessage");
 
     if (startButton && infoMessage) {
-      startButton.addEventListener("click", () => {
+      startButton.addEventListener("click", (event) => {
+        event.preventDefault();
         this.scene.start("MainScene");
         startButton.classList.add("disabled");
         infoMessage.classList.add("disabled");
